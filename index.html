@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Select's</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Select's encadenats</h1>
+        </header>
+
+        <main>
+            <form action="send.php">
+                <div id="desp">
+                    <div>
+                        <label>C.A:</label>
+                        <select id="ccaa" name="inici">
+                            <option selected>Selecciona una C.A.</option>
+                        </select>
+                    </div>
+                    <br>
+
+                    <div>
+                        <label>Provincia:</label>
+                        <select id="prov" name="comunitats" disabled></select>
+                    </div>
+                    <br>
+
+                    <div>
+                        <label>Municipi:</label>
+                        <select id="muni" name="provincies" disabled></select>
+                    </div>
+                </div>
+
+                <div id="info"></div>
+            </form>
+        </main>
+    </body>
+</html>
