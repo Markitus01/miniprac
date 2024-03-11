@@ -1,0 +1,22 @@
+html header {
+  margin: auto;
+  width: fit-content;
+}
+html #desp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+html #desp select {
+  min-width: 200px;
+  max-width: fit-content;
+}
+html #info {
+  text-align: center;
+}
