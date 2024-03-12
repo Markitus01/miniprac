@@ -3,21 +3,28 @@ $(document).ready(function()
     $.ajax({
         type: 'POST',
         url: 'send.php',
-        data: { inici: 'comunidades_autonomas' },
+        data: { inici: 'ccaa' },
         dataType: 'json',
         success: function(data)
         {
             console.log(data);
-            $('#ccaa').append('<option selected disabled>Selecciona una C.A.</option>');
+            $('#ccaa').append($('<option>',
+            {
+                selected: true,
+                disabled: true
+            }).text('Selecciona una C.A.'));
             
             $.each(data, function(i, e) // https://api.jquery.com/each/#each-function
             {
-                $('#ccaa').append('<option value="'+ e.id_comunidad +'">'+ e.nombre +'</option>');
+                $('#ccaa').append($('<option>',
+                {
+                    value: e.id_comunidad
+                }).text(e.nombre));
             });
         }
     });
 
-    $('#ccaa').change(function()
+    $('#ccaa').on('change',function()
     {
         let comunitatAct = $(this).val();
 
@@ -31,20 +38,28 @@ $(document).ready(function()
             {
                 console.log(data);
                 $('#prov').html(''); // Per eliminar les dades anteriors https://api.jquery.com/html/
-                $('#prov').append('<option selected disabled>Selecciona una provincia</option>');
+                $('#prov').append($('<option>',
+                {
+                    selected: true,
+                    disabled: true
+                }).text('Selecciona una provincia'));
 
                 $.each(data, function(i, e)
                 {
-                    $('#prov').append('<option value="'+ e.id_provincia +'">'+ e.provincia +'</option>');
+                    $('#prov').append($('<option>',
+                    {
+                        value: e.id_provincia
+                    }).text(e.provincia));
                 });
 
                 $('#prov').prop('disabled', false);
                 $('#muni').prop('disabled', true).html('');
+                updateInfo();
             }
         });
     });
 
-    $('#prov').change(function()
+    $('#prov').on('change',function()
     {
         let provAct = $(this).val();
 
@@ -58,30 +73,37 @@ $(document).ready(function()
             {
                 console.log(data);
                 $('#muni').html('');
-                $('#muni').append('<option selected disabled>Selecciona un municipi</option>');
+                $('#muni').append($('<option>',
+                {
+                    selected: true,
+                    disabled: true
+                }).text('Selecciona un municipi'));
 
                 $.each(data, function(i, e)
                 {
-                    $('#muni').append('<option value="'+ e.id_municipio +'">'+ e.nombre +'</option>');
+                    $('#muni').append($('<option>',
+                    {
+                        value:e.id_municipio
+                    }).text(e.nombre));
                 });
 
                 $('#muni').prop('disabled', false);
+                updateInfo();
             }
         });
     });
 
-    $('#ccaa, #prov, #muni').change(function()
+    $('#muni').on('change',function()
     {
         updateInfo();
     });
 
     function updateInfo()
     {
-        $('#info').empty(); // No acaba de funcionar bé l'empty, si selecciones tot i canvies de comunitat o provincia, segueixen apareixent de vegades les anteriors
-
-        var selecCcaa = $('#ccaa').find('option:selected').text();
-        var selecProv = $('#prov').find('option:selected').text();
-        var selecMuni = $('#muni').find('option:selected').text();
+        $('#info').empty();
+        let selecCcaa = $('#ccaa').find('option:selected').text();
+        let selecProv = $('#prov').find('option:selected').text();
+        let selecMuni = $('#muni').find('option:selected').text();
 
         if (selecCcaa)
         {
